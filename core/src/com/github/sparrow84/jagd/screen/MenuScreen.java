@@ -14,8 +14,11 @@ public class MenuScreen extends Base2DScreen {
 
     private Vector2 pos;
     private Vector2 v;
+    private Vector2 horizont;
+    private Vector2 destenation;
 
     int deltaX, deltaY;
+    double speed;
 
     @Override
     public void show() {
@@ -24,7 +27,11 @@ public class MenuScreen extends Base2DScreen {
         badLogic = new Texture("badlogic.jpg");
         pos = new Vector2(0,0);
         v = new Vector2(0.5f,0.5f);
+        horizont = new Vector2(1, 0);
+        destenation = pos;
+        speed = 0.2;
 
+        //FIXME
         deltaX = (int) pos.x;
         deltaY = (int) pos.y;
     }
@@ -39,7 +46,8 @@ public class MenuScreen extends Base2DScreen {
         batch.draw(badLogic, pos.x, pos.y);
         batch.end();
 
-        if (pos.x != deltaX || pos.y != deltaY) {
+        if (pos.x != destenation.x || pos.y != destenation.y) {
+            if (lineLen(pos, destenation) < speed) {}
             pos.add(v);
         }
 
@@ -61,6 +69,15 @@ public class MenuScreen extends Base2DScreen {
         deltaX = screenX;
         deltaY = screenY;
 
+        destenation.set(screenX, screenY);
+
+        v.x = (float) (speed * Math.cos(destenation.dot(horizont)));
+        v.y = (float) (speed * Math.sin(destenation.dot(horizont)));
+
         return super.touchDown(screenX, screenY, pointer, button);
+    }
+
+    float lineLen(Vector2 v1, Vector2 v2) {
+        return (float) Math.sqrt(Math.pow((v1.x - v2.x),2) + Math.pow((v1.y - v2.y),2));
     }
 }
