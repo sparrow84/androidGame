@@ -69,7 +69,7 @@ public class MenuScreen extends Base2DScreen {
         deltaX = screenX;
         deltaY = screenY;
 
-        destenation.set(screenX, screenY);
+        destenation.set(screenX, Gdx.graphics.getHeight() - screenY);
 
         v.x = (float) (speed * Math.cos(destenation.dot(horizont)));
         v.y = (float) (speed * Math.sin(destenation.dot(horizont)));
