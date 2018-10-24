@@ -28,7 +28,8 @@ public class MenuScreen extends Base2DScreen {
         pos = new Vector2(0,0);
         v = new Vector2(0.05f,0.05f);
         horizont = new Vector2(1, 0);
-        destenation = new Vector2(pos.x,pos.y);
+//        destenation = new Vector2(pos.x,pos.y);
+        destenation = new Vector2(0,0);
         speed = 1;
 
         //FIXME
@@ -58,16 +59,17 @@ public class MenuScreen extends Base2DScreen {
         if (pos.x != destenation.x || pos.y != destenation.y) {
 
             System.out.println("\npos.add(v) v.x= " + v.x + "   v.y= " + v.y);
-            System.out.println("pos.sub(destenation).len() = " + pos.sub(destenation).len());
+//            System.out.println("pos.sub(destenation).len() = " + pos.sub(destenation).len());
 
             if (pos.sub(destenation).len() < speed) {
                 System.out.println("LINE --- 51");
-                pos.x = destenation.x;
-                pos.y = destenation.y;
+//                pos.x = destenation.x;
+//                pos.y = destenation.y;
             } else {
-                System.out.println("\npos  x-> " + pos.x + "   y-> " + pos.y);
+                System.out.println("\n1_pos  x-> " + pos.x + "   y-> " + pos.y);
                 pos.add(v);
-                System.out.println("pos  x-> " + pos.x + "   y-> " + pos.y);
+                System.out.println("2_pos  x-> " + pos.x + "   y-> " + pos.y);
+                System.out.println("");
             }
         }
 
@@ -86,13 +88,17 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
+        screenY = Gdx.graphics.getHeight() - screenY;
+
 //        deltaX = screenX;
 //        deltaY = screenY;
 
-        destenation.set(screenX, Gdx.graphics.getHeight() - screenY);
 
-        v.x = (float) (speed * Math.cos(destenation.dot(horizont)));
-        v.y = (float) (speed * Math.sin(destenation.dot(horizont)));
+
+        destenation.set(screenX, screenY);
+
+//        v.x = (float) (speed * Math.cos(destenation.dot(horizont)));
+//        v.y = (float) (speed * Math.sin(destenation.dot(horizont)));
 
 //        v.x = (float) (speed * Math.cos(destenation.nor().dot(horizont.nor())));
 //        v.y = (float) (speed * Math.sin(destenation.nor().dot(horizont.nor())));
