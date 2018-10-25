@@ -106,7 +106,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     }
 
     public boolean touchDown(Vector2 touch, int pointer) {
-        System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
+//        System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
         return false;
     }
 
@@ -118,7 +118,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     }
 
     public boolean touchUp(Vector2 touch, int pointer) {
-        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
+//        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
 
         return false;
     }

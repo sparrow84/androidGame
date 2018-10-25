@@ -14,12 +14,9 @@ public class MenuScreen extends Base2DScreen {
 
     private Vector2 pos;
     private Vector2 v;
-    private Vector2 horizont;
-    private Vector2 destenation;
+    private Vector2 touch;
     private Vector2 buf;
-
-    //    int deltaX, deltaY;
-    double speed;
+    float speed;
 
     @Override
     public void show() {
@@ -28,16 +25,10 @@ public class MenuScreen extends Base2DScreen {
         badLogic = new Texture("badlogic.jpg");
         pos = new Vector2(0, 0);
         v = new Vector2(0.05f, 0.05f);
-        horizont = new Vector2(1, 0);
-//        destenation = new Vector2(pos.x,pos.y);
-        destenation = new Vector2(0, 0);
+        touch = new Vector2();
         buf = new Vector2();
 
-        speed = 1;
-
-        //FIXME
-//        deltaX = (int) pos.x;
-//        deltaY = (int) pos.y;
+        speed = 0.1f;
     }
 
     @Override
@@ -46,82 +37,29 @@ public class MenuScreen extends Base2DScreen {
         Gdx.gl.glClearColor(0.5f, 1, 15, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        buf.set(destenation);
+        buf.set(touch);
         if (buf.sub(pos).len() > v.len()) {
             pos.add(v);
         } else {
-            pos.set(destenation);
+            pos.set(touch);
         }
 
         batch.begin();
         batch.draw(badLogic, pos.x, pos.y);
         batch.end();
 
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        System.out.println("pos.x = " + pos.x + "   pos.y = " + pos.y);
-//        System.out.println("des.x = " + destenation.x + "   des.y = " + destenation.y);
-//        if (pos.x != destenation.x || pos.y != destenation.y) {
-
-//            System.out.println("\npos.add(v) v.x= " + v.x + "   v.y= " + v.y);
-//            System.out.println("pos.sub(destenation).len() = " + pos.sub(destenation).len());
-
-//            if (pos.cpy().sub(destenation).len() < speed) {
-//                System.out.println("LINE --- 51");
-//                pos.x = destenation.x;
-//                pos.y = destenation.y;
-//            } else {
-//                System.out.println("\n1_pos  x-> " + pos.x + "   y-> " + pos.y);
-//                pos.add(v);
-//                System.out.println("2_pos  x-> " + pos.x + "   y-> " + pos.y);
-//                System.out.println("");
-//            }
     }
-
-
-
-
 
     @Override
     public void dispose() {
-        batch.dispose();
         badLogic.dispose();
         super.dispose();
     }
 
-
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-        screenY = Gdx.graphics.getHeight() - screenY;
-
-//        this.destenation = destenation;
-
-        destenation.set(screenX, screenY);
-
-        v.set(destenation.cpy().sub(pos).scl(0.01f));
+    public boolean touchDown(Vector2 touch, int pointer) {
+        this.touch = touch;
+        v.set(touch.cpy().sub(pos).scl(speed));
         return false;
-
-//        deltaX = screenX;
-//        deltaY = screenY;
-//        destenation.set(screenX, screenY);
-//        v.x = (float) (speed * Math.cos(destenation.dot(horizont)));
-//        v.y = (float) (speed * Math.sin(destenation.dot(horizont)));
-//        v.x = (float) (speed * Math.cos(destenation.nor().dot(horizont.nor())));
-//        v.y = (float) (speed * Math.sin(destenation.nor().dot(horizont.nor())));
-//        System.out.println("\n! ! ! touchDown  v.x = " + v.x + "  v.y = " + v.y);
-//        return super.touchDown(screenX, screenY, pointer, button);
     }
-
-//    float lineLen(Vector2 v1, Vector2 v2) {
-//        float res = (float) Math.sqrt(Math.pow((v1.x - v2.x),2) + Math.pow((v1.y - v2.y),2));
-//        System.out.println("lineLen res1 = " + res);
-//        System.out.println("lineLen res2 = " + v1.sub(v2).len());
-//        return res;
-//    }
 }
