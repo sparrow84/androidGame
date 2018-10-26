@@ -13,10 +13,10 @@ public class Star2DGame extends Game {
 
 
 
-        Vector2 v1 = new Vector2(4, 3);
-        Vector2 v2 = new Vector2(10, 6);
+//        Vector2 v1 = new Vector2(4, 3);
+//        Vector2 v2 = new Vector2(10, 6);
 //        v1.add(v2);
-        System.out.println("v1.x = " + v1.x + "  v1.y = " + v1.y);
+//        System.out.println("v1.x = " + v1.x + "  v1.y = " + v1.y);
 
 //        v1.set(3,2);
 //        v2.set(1,1);
@@ -27,10 +27,10 @@ public class Star2DGame extends Game {
 //        v1.scl(0.9f);
 //        System.out.println("v1.x = " + v1.x + "  v1.y = " + v1.y);
 
-        System.out.println("v1.len() = " + v1.len());
+//        System.out.println("v1.len() = " + v1.len());
 
 //        v1.nor();
-        System.out.println(v1.len() - v2.len());
+//        System.out.println(v1.len() - v2.len());
 
 //        v1.set(3,5);
 //        v2.set(24,9);
