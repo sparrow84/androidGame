@@ -21,12 +21,17 @@ public class MenuScreen extends Base2DScreen {
     private TextureAtlas textureAtlas;
     private Star[] stars;
 
+    private Star star;
+
     @Override
     public void show() {
         super.show();
         bgTexture = new Texture("bg.png");
         background = new Background(new TextureRegion(bgTexture));
         textureAtlas = new TextureAtlas("menuAtlas.tpack");
+
+        star = new Star(textureAtlas);
+
         stars = new Star[STAR_COUNT];
 
         for (int i = 0; i < stars.length; i++) {
@@ -55,6 +60,8 @@ public class MenuScreen extends Base2DScreen {
 
         background.draw(batch);
 
+        star.draw(batch);
+
         for (int i = 0; i < stars.length; i++) {
             stars[i].draw(batch);
         }
@@ -68,6 +75,8 @@ public class MenuScreen extends Base2DScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i].resize(worldBounds);
         }
+
+        star.resize(worldBounds);
     }
 
     @Override
