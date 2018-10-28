@@ -3,8 +3,10 @@ package com.github.sparrow84.jagd.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.base.Base2DScreen;
+import com.github.sparrow84.jagd.base.Sprite;
 
 public class MenuScreen extends Base2DScreen {
 
@@ -15,6 +17,8 @@ public class MenuScreen extends Base2DScreen {
     private Vector2 buf;
     float speed;
 
+    private Sprite sprite;
+
     @Override
     public void show() {
         super.show();
@@ -23,8 +27,12 @@ public class MenuScreen extends Base2DScreen {
         v = new Vector2(0.05f, 0.05f);
         touch = new Vector2();
         buf = new Vector2();
-
         speed = 0.1f;
+
+        sprite = new Sprite(new TextureRegion(badLogic));
+
+        sprite.setWidth(0.5f);
+        sprite.setHeight(0.5f);
     }
 
     @Override
@@ -41,7 +49,7 @@ public class MenuScreen extends Base2DScreen {
         }
 
         batch.begin();
-        batch.draw(badLogic, pos.x, pos.y, 0.5f, 0.5f);
+        sprite.draw(batch);
         batch.end();
 
     }
