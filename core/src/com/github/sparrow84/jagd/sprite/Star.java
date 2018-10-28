@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.base.Sprite;
 import com.github.sparrow84.jagd.math.Rect;
 
-import static ru.geekbrains.math.Rnd.*;
+import ru.geekbrains.math.Rnd;
 
 public class Star extends Sprite {
 
@@ -21,8 +21,8 @@ public class Star extends Sprite {
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
-        float podX = nextFloat(worldBounds.getLeft(), worldBounds.getRight());
-        float podY = nextFloat(worldBounds.getBottom(), worldBounds.getTop());
+        float podX = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight());
+        float podY = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop());
         pos.set(podX, podY);
     }
 

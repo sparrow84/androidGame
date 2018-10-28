@@ -37,19 +37,18 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        drow();
         update(delta);
+        drow();
     }
 
     public void update(float delta) {
-
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
         }
     }
 
     public void drow() {
-        Gdx.gl.glClearColor(0.5f, 1, 15, 0);
+        Gdx.gl.glClearColor(0, 0, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
@@ -59,7 +58,6 @@ public class MenuScreen extends Base2DScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i].draw(batch);
         }
-
 
         batch.end();
     }
