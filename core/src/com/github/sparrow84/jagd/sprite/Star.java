@@ -14,7 +14,13 @@ public class Star extends Sprite {
     public Star(TextureAtlas atlas) {
         super(atlas.findRegion("star"));
         setHeightProportion(0.01f);
-        this.v.set(Rnd.nextFloat(0.001f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f));
+        this.v.set(Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f));
+    }
+
+    @Override
+    public void update(float delta) {
+        pos.mulAdd(v, delta);
+        checkAndHandleBounds();
     }
 
     @Override
@@ -23,12 +29,6 @@ public class Star extends Sprite {
         float podX = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight());
         float podY = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop());
         pos.set(podX, podY);
-    }
-
-    @Override
-    public void update(float delta) {
-        pos.mulAdd(v, delta);
-        checkAndHandleBounds();
     }
 
     private void checkAndHandleBounds() {
