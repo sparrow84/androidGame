@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.base.Sprite;
 import com.github.sparrow84.jagd.math.Rect;
-
-import ru.geekbrains.math.Rnd;
+import com.github.sparrow84.jagd.math.Rnd;
 
 public class Star extends Sprite {
 
@@ -15,7 +14,7 @@ public class Star extends Sprite {
     public Star(TextureAtlas atlas) {
         super(atlas.findRegion("star"));
         setHeightProportion(0.01f);
-        this.v.set(ru.geekbrains.math.Rnd.nextFloat(0.001f, 0.005f), ru.geekbrains.math.Rnd.nextFloat(-0.5f, -0.1f));
+        this.v.set(Rnd.nextFloat(0.001f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f));
     }
 
     @Override
