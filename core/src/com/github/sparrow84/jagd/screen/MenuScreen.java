@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.base.Base2DScreen;
 import com.github.sparrow84.jagd.math.Rect;
 import com.github.sparrow84.jagd.sprite.Background;
+import com.github.sparrow84.jagd.sprite.BtExit;
 import com.github.sparrow84.jagd.sprite.Star;
 
 public class MenuScreen extends Base2DScreen {
@@ -22,6 +23,7 @@ public class MenuScreen extends Base2DScreen {
     private Star[] stars;
 
     private Star star;
+    private BtExit btExit;
 
     @Override
     public void show() {
@@ -29,6 +31,8 @@ public class MenuScreen extends Base2DScreen {
         bgTexture = new Texture("bg.png");
         background = new Background(new TextureRegion(bgTexture));
         textureAtlas = new TextureAtlas("menuAtlas.tpack");
+
+        btExit = new BtExit(textureAtlas);
 
         star = new Star(textureAtlas);
 
@@ -59,6 +63,8 @@ public class MenuScreen extends Base2DScreen {
         batch.begin();
 
         background.draw(batch);
+
+        btExit.draw(batch);
 
         star.draw(batch);
 
