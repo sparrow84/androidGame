@@ -51,6 +51,11 @@ public class MenuScreen extends Base2DScreen {
     }
 
     public void update(float delta) {
+
+        if (btExit.isMe(this.move)) {
+            System.out.println(" IS MEEEEE !!!");
+        }
+
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
         }
