@@ -23,10 +23,15 @@ public class BtExit extends Sprite {
 
     public void zoomInZoomOutOnHover(Vector2 move) {
         if (this.isMe(move)) {
-            this.setScale(0.9f);
+            this.setScale(1.1f);
         } else {
             this.setScale(1f);
         }
+    }
+
+    public boolean close(Vector2 touch) {
+        if (this.isMe(touch)) return true;
+        return false;
     }
 
 }

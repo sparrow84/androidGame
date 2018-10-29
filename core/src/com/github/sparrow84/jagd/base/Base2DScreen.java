@@ -23,7 +23,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     protected Matrix4 worldToGl;
     protected Matrix3 screenToWorld;
 
-    private Vector2 touch;
+    protected Vector2 touch;
     protected Vector2 move;
 
     @Override

@@ -57,6 +57,7 @@ public class MenuScreen extends Base2DScreen {
 //        }
 
         btExit.zoomInZoomOutOnHover(this.move);
+        if (btExit.close(this.touch)) System.exit(0);//this.hide();
 
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
