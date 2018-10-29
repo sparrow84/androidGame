@@ -138,9 +138,9 @@ public class Base2DScreen implements Screen, InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        System.out.println("mouseMoved    screenX = " + screenX + " screenY = " + screenY);
+//        System.out.println("mouseMoved    screenX = " + screenX + " screenY = " + screenY);
         move.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
-        System.out.println("*** move.x = " + move.x + "   move.y = " + move.y);
+//        System.out.println("*** move.x = " + move.x + "   move.y = " + move.y);
         return false;
     }
 
