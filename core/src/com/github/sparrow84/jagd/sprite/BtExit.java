@@ -10,10 +10,16 @@ public class BtExit extends Sprite {
 
     private Rect worldBounds;
 
+    private Vector2 tmpPress;
+    private Vector2 empty;
+
     public BtExit(TextureAtlas atlas) {
         super(atlas.findRegion("btExit"));
         setHeightProportion(0.2f);
         pos.set(-0.25f,-0.35f);
+
+        tmpPress = new Vector2();
+        empty = new Vector2();
     }
 
     @Override
@@ -27,6 +33,19 @@ public class BtExit extends Sprite {
         } else {
             this.setScale(1f);
         }
+    }
+
+    public void zoomInZoomOutOnPressed(Vector2 touch) {
+
+        tmpPress.set(touch);
+
+        if (this.isMe(tmpPress)) {
+            this.setScale(1.1f);
+        } else {
+            this.setScale(1f);
+        }
+
+        tmpPress.set(empty);
     }
 
     public boolean close(Vector2 touch) {

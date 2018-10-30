@@ -10,6 +10,7 @@ import com.github.sparrow84.jagd.base.Base2DScreen;
 import com.github.sparrow84.jagd.math.Rect;
 import com.github.sparrow84.jagd.sprite.Background;
 import com.github.sparrow84.jagd.sprite.BtExit;
+import com.github.sparrow84.jagd.sprite.BtPlay;
 import com.github.sparrow84.jagd.sprite.Star;
 
 public class MenuScreen extends Base2DScreen {
@@ -24,6 +25,7 @@ public class MenuScreen extends Base2DScreen {
 
     private Star star;
     private BtExit btExit;
+    private BtPlay btPlay;
 
     @Override
     public void show() {
@@ -33,6 +35,7 @@ public class MenuScreen extends Base2DScreen {
         textureAtlas = new TextureAtlas("menuAtlas.tpack");
 
         btExit = new BtExit(textureAtlas);
+        btPlay = new BtPlay(textureAtlas);
 
         star = new Star(textureAtlas);
 
@@ -57,11 +60,16 @@ public class MenuScreen extends Base2DScreen {
 //        }
 
         btExit.zoomInZoomOutOnHover(this.move);
+//        btPlay.zoomInZoomOutOnHover(this.move);
+
+        btPlay.zoomInZoomOutOnPressed(touch);
+
         if (btExit.close(this.touch)) System.exit(0);//this.hide();
 
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
         }
+//        touch.set(empty);
     }
 
     public void drow() {
@@ -73,6 +81,7 @@ public class MenuScreen extends Base2DScreen {
         background.draw(batch);
 
         btExit.draw(batch);
+        btPlay.draw(batch);
 
         star.draw(batch);
 
@@ -102,7 +111,14 @@ public class MenuScreen extends Base2DScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
+//        System.out.println("MENU_SCREEN_TOUCH_DOWN");
+        return false;
+    }
 
+    @Override
+    public boolean touchUp(Vector2 touch, int pointer) {
+//        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
+        touch.set(empty);
         return false;
     }
 }

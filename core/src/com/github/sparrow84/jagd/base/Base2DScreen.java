@@ -26,6 +26,8 @@ public class Base2DScreen implements Screen, InputProcessor {
     protected Vector2 touch;
     protected Vector2 move;
 
+    protected Vector2 empty;
+
     @Override
     public void show() {
         System.out.println("show");
@@ -38,6 +40,7 @@ public class Base2DScreen implements Screen, InputProcessor {
         this.screenToWorld = new Matrix3();
         this.touch = new Vector2();
         this.move = new Vector2();
+        this.empty = new Vector2();
     }
 
     @Override
@@ -109,6 +112,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDown(touch, pointer);
+//        System.out.println("BASE_2D_SCREEN_TOUCH_DOWN");
         return false;
     }
 
