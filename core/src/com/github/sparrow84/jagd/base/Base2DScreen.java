@@ -24,6 +24,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     protected Matrix3 screenToWorld;
 
     protected Vector2 touch;
+    protected Vector2 unTouch;
     protected Vector2 move;
 
     protected Vector2 empty;
@@ -39,6 +40,7 @@ public class Base2DScreen implements Screen, InputProcessor {
         this.worldToGl = new Matrix4();
         this.screenToWorld = new Matrix3();
         this.touch = new Vector2();
+        this.unTouch = new Vector2();
         this.move = new Vector2();
         this.empty = new Vector2();
     }
@@ -125,6 +127,9 @@ public class Base2DScreen implements Screen, InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchUp(touch, pointer);
+        unTouch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
+//        touchUp(unTouch, pointer);
+//        System.out.println(" Base2DScreen     touchUp     unTouch.x = " + unTouch.x + "   unTouch.y = " + unTouch.y);
         return false;
     }
 

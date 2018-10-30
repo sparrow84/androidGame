@@ -28,8 +28,19 @@ public class BtPlay extends Sprite {
 
     public void zoomInZoomOutOnPressed(Vector2 touch) {
         if (this.isMe(touch)) {
-            this.setScale(1.1f);
+            this.setScale(0.9f);
         } else if (!this.isMe(touch)) {
+            this.setScale(1f);
+        }
+    }
+
+    public void zoomInZoomOutOnHoverOnPressed(Vector2 touch, Vector2 move) {
+        if (this.isMe(move)) {
+            if (this.isMe(touch)) {
+                this.setScale(0.9f);
+            } else
+                this.setScale(1.1f);
+        } else if (!this.isMe(move)) {
             this.setScale(1f);
         }
     }

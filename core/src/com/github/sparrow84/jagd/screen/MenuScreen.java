@@ -59,12 +59,14 @@ public class MenuScreen extends Base2DScreen {
 //            System.out.println(" IS MEEEEE !!!");
 //        }
 
-        btExit.zoomInZoomOutOnHover(this.move);
+//        btExit.zoomInZoomOutOnHover(this.move);
 //        btPlay.zoomInZoomOutOnHover(this.move);
+//        btPlay.zoomInZoomOutOnPressed(touch);
 
-        btPlay.zoomInZoomOutOnPressed(touch);
+        btExit.zoomInZoomOutOnHoverOnPressed(this.touch, this.move);
+        btPlay.zoomInZoomOutOnHoverOnPressed(this.touch, this.move);
 
-        if (btExit.close(this.touch)) System.exit(0);//this.hide();
+        if (btExit.close(this.unTouch)) System.exit(0);//this.hide();
 
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
@@ -117,7 +119,7 @@ public class MenuScreen extends Base2DScreen {
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
-//        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
+        System.out.println("+++ touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
         touch.set(empty);
         return false;
     }
