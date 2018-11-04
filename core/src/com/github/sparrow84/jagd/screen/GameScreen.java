@@ -1,26 +1,22 @@
 package com.github.sparrow84.jagd.screen;
 
-import com.badlogic.gdx.Game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.github.sparrow84.jagd.base.ActionListener;
 import com.github.sparrow84.jagd.base.Base2DScreen;
 import com.github.sparrow84.jagd.math.Rect;
+import com.github.sparrow84.jagd.pool.BulletPool;
 import com.github.sparrow84.jagd.sprite.Background;
-import com.github.sparrow84.jagd.sprite.BtExit;
-import com.github.sparrow84.jagd.sprite.BtPlay;
+import com.github.sparrow84.jagd.sprite.MainShip;
 import com.github.sparrow84.jagd.sprite.Star;
 
+public class GameScreen extends Base2DScreen {
 
-public class MenuScreen extends Base2DScreen implements ActionListener {
-
-    private static final int STAR_COUNT = 256;
-
-    private Game game;
+    private static final int STAR_COUNT = 64;
 
     private Texture bgTexture;
     private Background background;
@@ -28,40 +24,47 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
     private TextureAtlas textureAtlas;
     private Star[] stars;
 
-    private BtExit BtExit;
-    private BtPlay BtPlay;
+    private MainShip mainShip;
 
-    public MenuScreen(Game game) {
-        super();
-        this.game = game;
-    }
+    private BulletPool bulletPool;
 
     @Override
     public void show() {
         super.show();
         bgTexture = new Texture("bg.png");
         background = new Background(new TextureRegion(bgTexture));
-        textureAtlas = new TextureAtlas("menuAtlas.tpack");
+        textureAtlas = new TextureAtlas("mainAtlas.tpack");
         stars =new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(textureAtlas);
         }
-        BtExit = new BtExit(textureAtlas, this);
-        BtPlay = new BtPlay(textureAtlas, this);
+        bulletPool = new BulletPool();
+        mainShip = new MainShip(textureAtlas, bulletPool);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         update(delta);
+        checkCollisions();
+        deleteAllDestroyed();
         draw();
-
     }
 
     public void update(float delta) {
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
         }
+        mainShip.update(delta);
+        bulletPool.updateActiveObjects(delta);
+    }
+
+    public void checkCollisions() {
+
+    }
+
+    public void deleteAllDestroyed() {
+        bulletPool.freeAllDestroyedActiveObjects();
     }
 
     public void draw() {
@@ -72,8 +75,8 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         for (int i = 0; i < stars.length; i++) {
             stars[i].draw(batch);
         }
-        BtExit.draw(batch);
-        BtPlay.draw(batch);
+        mainShip.draw(batch);
+        bulletPool.drawActiveObjects(batch);
         batch.end();
     }
 
@@ -83,8 +86,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         for (int i = 0; i < stars.length; i++) {
             stars[i].resize(worldBounds);
         }
-        BtExit.resize(worldBounds);
-        BtPlay.resize(worldBounds);
+        mainShip.resize(worldBounds);
     }
 
     @Override
@@ -95,25 +97,24 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
     }
 
     @Override
+    public boolean keyDown(int keycode) {
+        mainShip.keyDown(keycode);
+        return super.keyDown(keycode);
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        mainShip.keyUp(keycode);
+        return super.keyUp(keycode);
+    }
+
+    @Override
     public boolean touchDown(Vector2 touch, int pointer) {
-        BtExit.touchDown(touch, pointer);
-        BtPlay.touchDown(touch, pointer);
-        return false;
+        return super.touchDown(touch, pointer);
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
-        BtExit.touchUp(touch, pointer);
-        BtPlay.touchUp(touch, pointer);
         return super.touchUp(touch, pointer);
-    }
-
-    @Override
-    public void actionPerformed(Object src) {
-        if (src == BtExit) {
-            Gdx.app.exit();
-        } else if (src == BtPlay) {
-            game.setScreen(new GameScreen());
-        }
     }
 }
