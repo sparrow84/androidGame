@@ -2,11 +2,10 @@ package com.github.sparrow84.jagd.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.github.sparrow84.jagd.base.Sprite;
+import com.github.sparrow84.jagd.base.ScaledTouchUpButton;
 import com.github.sparrow84.jagd.math.Rect;
-import com.github.sparrow84.jagd.math.Rnd;
 
-public class BtExit extends Sprite {
+public class BtExit extends ScaledTouchUpButton {
 
     private Rect worldBounds;
 
@@ -14,7 +13,7 @@ public class BtExit extends Sprite {
     private Vector2 empty;
 
     public BtExit(TextureAtlas atlas) {
-        super(atlas.findRegion("btExit"));
+        super(atlas.findRegion("btExit"),this);
         setHeightProportion(0.2f);
         pos.set(-0.25f,-0.35f);
 

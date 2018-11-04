@@ -66,7 +66,8 @@ public class MenuScreen extends Base2DScreen {
         btExit.zoomInZoomOutOnHoverOnPressed(this.touch, this.move);
         btPlay.zoomInZoomOutOnHoverOnPressed(this.touch, this.move);
 
-        if (btExit.close(this.unTouch)) System.exit(0);//this.hide();
+//        if (btExit.close(this.unTouch)) System.exit(0);//this.hide();
+        if (btExit.close(this.unTouch)) Gdx.app.exit();
 
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
@@ -82,14 +83,14 @@ public class MenuScreen extends Base2DScreen {
 
         background.draw(batch);
 
-        btExit.draw(batch);
-        btPlay.draw(batch);
-
         star.draw(batch);
 
         for (int i = 0; i < stars.length; i++) {
             stars[i].draw(batch);
         }
+
+        btExit.draw(batch);
+        btPlay.draw(batch);
 
         batch.end();
     }
