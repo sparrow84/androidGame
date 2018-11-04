@@ -40,11 +40,6 @@ public class MainShip extends Sprite {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
-
-        System.out.println(" (^_^) MainShip  touchDown  ");
-
-        System.out.println(touch.x + "    " + touch.y);
-
         if (touch.x < 0) {
             pressedLeft = true;
             moveLeft();
@@ -52,38 +47,17 @@ public class MainShip extends Sprite {
             pressedRight = true;
             moveRight();
         }
-
         return false;
-//        return super.touchDown(touch, pointer);
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
-
-
-        System.out.println(" (^_^) MainShip  touchUp  ");
-        System.out.println(touch.x + "    " + touch.y);
-
-//        if (touch.x < 0) {
-//            pressedLeft = false;
-//            if (pressedRight) moveRight();
-//            else stop();
-//        } else {
-//            pressedRight = false;
-//            if (pressedLeft) moveLeft();
-//            else stop();
-//        }
-
-
         pressedLeft = false;
         pressedRight = false;
-
         if (pressedRight) moveRight();
         else if (pressedLeft) moveLeft();
         else stop();
-
         return false;
-//        return super.touchUp(touch, pointer);
     }
 
 
