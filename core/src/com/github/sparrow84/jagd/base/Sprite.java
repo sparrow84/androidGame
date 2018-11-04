@@ -4,37 +4,44 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.math.Rect;
+import com.github.sparrow84.jagd.utils.Regions;
 
 public class Sprite extends Rect {
 
-    protected float angel;
+    protected float angle;
     protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
+    protected boolean isDestroyed;
+
+    public Sprite() {
+
+    }
 
     public Sprite(TextureRegion region) {
-        if(region == null) {
+        if (region == null) {
             throw new NullPointerException("region is null");
         }
-        regions = new TextureRegion[1];
+        regions  = new TextureRegion[1];
         regions[0] = region;
+    }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        this.regions = Regions.split(region, rows, cols, frames);
     }
 
     public void draw(SpriteBatch batch) {
         batch.draw(
-                regions[frame], // current region
-                getLeft(),      // render point
-                getBottom(),    // render point
-                halfWidth,      // rotate point
-                halfHeight,     // rotate point
-                getWidth(),
-                getHeight(),
-                scale, scale,   // scale x and y
-                angel           // rotate angel
+                regions[frame], //текущий регион
+                getLeft(), getBottom(), // точка отрисовки
+                halfWidth, halfHeight, // точка вращения
+                getWidth(), getHeight(), // ширина и высота
+                scale, scale, // масштаб по x и y
+                angle // угол вращения
         );
     }
 
-    public void setHeightProportion(Float height) {
+    public void setHeightProportion(float height) {
         setHeight(height);
         float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
         setWidth(height * aspect);
@@ -56,12 +63,12 @@ public class Sprite extends Rect {
         return false;
     }
 
-    public float getAngel() {
-        return angel;
+    public float getAngle() {
+        return angle;
     }
 
-    public void setAngel(float angel) {
-        this.angel = angel;
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
     public float getScale() {
@@ -70,5 +77,17 @@ public class Sprite extends Rect {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public void destroy() {
+        isDestroyed = true;
+    }
+
+    public void flushDestroy() {
+        isDestroyed = false;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 }
