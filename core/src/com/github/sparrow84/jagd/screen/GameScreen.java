@@ -2,6 +2,7 @@ package com.github.sparrow84.jagd.screen;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -28,6 +29,8 @@ public class GameScreen extends Base2DScreen {
 
     private BulletPool bulletPool;
 
+    Music music = Gdx.audio.newMusic(Gdx.files.internal("SuperMario.mp3"));
+
     @Override
     public void show() {
         super.show();
@@ -40,6 +43,10 @@ public class GameScreen extends Base2DScreen {
         }
         bulletPool = new BulletPool();
         mainShip = new MainShip(textureAtlas, bulletPool);
+
+        music.setVolume(0.4f);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override

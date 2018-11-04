@@ -1,6 +1,8 @@
 package com.github.sparrow84.jagd.sprite;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.github.sparrow84.jagd.base.Sprite;
@@ -19,6 +21,8 @@ public class MainShip extends Sprite {
     private TextureAtlas atlas;
 
     private Rect worldBounds;
+
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("shot.mp3"));
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -106,7 +110,10 @@ public class MainShip extends Sprite {
     }
 
     private void moveRight() {
-        v.set(v0);
+
+        System.out.println("this.pos.x - " + this.pos.x);
+
+        if (this.pos.x < worldBounds.getRight()) v.set(v0);
     }
 
     private void moveLeft() {
@@ -120,5 +127,6 @@ public class MainShip extends Sprite {
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, atlas.findRegion("bulletMainShip"), pos, new Vector2(0, 0.5f), 0.01f, worldBounds, 1);
+        sound.play();
     }
 }
