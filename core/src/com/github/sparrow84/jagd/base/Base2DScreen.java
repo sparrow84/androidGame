@@ -12,22 +12,19 @@ import com.github.sparrow84.jagd.math.Rect;
 
 
 
+
 public class Base2DScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
 
     private Rect screenBounds; // границы области рисования в пикселях
-    private Rect worldBounds; // границы проекции мировых координат
+    protected Rect worldBounds; // границы проекции мировых координат
     private Rect glBounds; // границы проэкции world - gl
 
     protected Matrix4 worldToGl;
     protected Matrix3 screenToWorld;
 
-    protected Vector2 touch;
-    protected Vector2 unTouch;
-    protected Vector2 move;
-
-    protected Vector2 empty;
+    private Vector2 touch;
 
     @Override
     public void show() {
@@ -40,9 +37,6 @@ public class Base2DScreen implements Screen, InputProcessor {
         this.worldToGl = new Matrix4();
         this.screenToWorld = new Matrix3();
         this.touch = new Vector2();
-        this.unTouch = new Vector2();
-        this.move = new Vector2();
-        this.empty = new Vector2();
     }
 
     @Override
@@ -114,12 +108,11 @@ public class Base2DScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDown(touch, pointer);
-//        System.out.println("BASE_2D_SCREEN_TOUCH_DOWN");
         return false;
     }
 
     public boolean touchDown(Vector2 touch, int pointer) {
-//        System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
+        System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
         return false;
     }
 
@@ -127,14 +120,11 @@ public class Base2DScreen implements Screen, InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchUp(touch, pointer);
-        unTouch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
-//        touchUp(unTouch, pointer);
-//        System.out.println(" Base2DScreen     touchUp     unTouch.x = " + unTouch.x + "   unTouch.y = " + unTouch.y);
         return false;
     }
 
     public boolean touchUp(Vector2 touch, int pointer) {
-//        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
+        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
 
         return false;
     }
@@ -147,9 +137,6 @@ public class Base2DScreen implements Screen, InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-//        System.out.println("mouseMoved    screenX = " + screenX + " screenY = " + screenY);
-        move.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
-//        System.out.println("*** move.x = " + move.x + "   move.y = " + move.y);
         return false;
     }
 
