@@ -33,9 +33,12 @@ public class EnemiesEmmiter {
     private TextureRegion[] enemySmallRegion;
     private TextureRegion[] enemyMediumRegion;
     private TextureRegion[] enemyBigRegion;
+
+    // Enemy speed
     private Vector2 enemySmallV = new Vector2(0, -0.2f);
     private Vector2 enemyMediumV = new Vector2(0, -0.03f);
     private Vector2 enemyBigV = new Vector2(0, -0.005f);
+    private Vector2 speedOfAppearance = new Vector2(0, -0.7f);
 
     private EnemyPool enemyPool;
     private Rect worldBounds;
@@ -71,6 +74,7 @@ public class EnemiesEmmiter {
                 enemy.set(
                         enemySmallRegion,
                         enemySmallV,
+                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         ENEMY_SMALL_BULLET_VY,
@@ -83,6 +87,7 @@ public class EnemiesEmmiter {
                 enemy.set(
                         enemyMediumRegion,
                         enemyMediumV,
+                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         ENEMY_MEDIUM_BULLET_VY,
@@ -95,6 +100,7 @@ public class EnemiesEmmiter {
                 enemy.set(
                         enemyBigRegion,
                         enemyBigV,
+                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         ENEMY_BIG_BULLET_VY,

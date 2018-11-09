@@ -10,6 +10,7 @@ import com.github.sparrow84.jagd.pool.BulletPool;
 
 public class Enemy extends Ship {
     private Vector2 v0 = new Vector2();
+    private Vector2 speedOfAppearance = new Vector2();
 
     public Enemy(BulletPool bulletPool, Rect worldBounds, Sound shootSound) {
         super(shootSound);
@@ -21,12 +22,29 @@ public class Enemy extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
-        pos.mulAdd(v, delta);
+
+        if (getTop() > worldBounds.getTop()) {
+            pos.mulAdd(speedOfAppearance, delta);
+        } else if (getBottom() < worldBounds.getBottom()) {
+            pos.mulAdd(speedOfAppearance, delta);
+        } else {
+            pos.mulAdd(v, delta);
+        }
+
+        reloadTimer += delta;
+
+        if (reloadTimer >= reloadInterval) {
+            shoot();
+            reloadTimer = 0f;
+        }
+
+        if (getTop() < worldBounds.getBottom()) destroy();
     }
 
     public void set(
             TextureRegion[] regions,
             Vector2 v0,
+            Vector2 speedOfAppearance,
             TextureRegion bulletRegion,
             float bulletHeight,
             float bulletVY,
@@ -37,6 +55,7 @@ public class Enemy extends Ship {
     ) {
         this.regions = regions;
         this.v0.set(v0);
+        this.speedOfAppearance.set(speedOfAppearance);
         this.bulletRegion = bulletRegion;
         this.bulletHeight = bulletHeight;
         this.bulletV.set(0f, bulletVY);
@@ -46,4 +65,5 @@ public class Enemy extends Ship {
         setHeightProportion(height);
         v.set(v0);
     }
+
 }
