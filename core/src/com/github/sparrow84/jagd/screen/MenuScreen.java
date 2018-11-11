@@ -13,6 +13,7 @@ import com.github.sparrow84.jagd.math.Rect;
 import com.github.sparrow84.jagd.sprite.Background;
 import com.github.sparrow84.jagd.sprite.BtExit;
 import com.github.sparrow84.jagd.sprite.BtPlay;
+import com.github.sparrow84.jagd.sprite.MessageGameOver;
 import com.github.sparrow84.jagd.sprite.Star;
 
 
@@ -31,6 +32,10 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
     private BtExit BtExit;
     private BtPlay BtPlay;
 
+    private MessageGameOver messageGameOver;
+
+    private TextureAtlas textureAtlas2;
+
     public MenuScreen(Game game) {
         super();
         this.game = game;
@@ -42,12 +47,15 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         bgTexture = new Texture("bg.png");
         background = new Background(new TextureRegion(bgTexture));
         textureAtlas = new TextureAtlas("menuAtlas.tpack");
+        textureAtlas2 = new TextureAtlas("mainAtlas.tpack");
         stars =new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(textureAtlas);
         }
         BtExit = new BtExit(textureAtlas, this);
         BtPlay = new BtPlay(textureAtlas, this);
+
+        messageGameOver = new MessageGameOver(textureAtlas2);
     }
 
     @Override
@@ -74,6 +82,9 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         }
         BtExit.draw(batch);
         BtPlay.draw(batch);
+
+        messageGameOver.draw(batch);
+
         batch.end();
     }
 
@@ -85,6 +96,8 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         }
         BtExit.resize(worldBounds);
         BtPlay.resize(worldBounds);
+
+        messageGameOver.resize(worldBounds);
     }
 
     @Override

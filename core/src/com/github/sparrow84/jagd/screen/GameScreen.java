@@ -18,6 +18,7 @@ import com.github.sparrow84.jagd.sprite.Background;
 import com.github.sparrow84.jagd.sprite.Bullet;
 import com.github.sparrow84.jagd.sprite.Enemy;
 import com.github.sparrow84.jagd.sprite.MainShip;
+import com.github.sparrow84.jagd.sprite.MessageGameOver;
 import com.github.sparrow84.jagd.sprite.Star;
 import com.github.sparrow84.jagd.utils.EnemiesEmmiter;
 
@@ -47,6 +48,8 @@ public class GameScreen extends Base2DScreen {
     private EnemiesEmmiter enemiesEmmiter;
     private ExplosionPool explosionPool;
 
+    private MessageGameOver messageGameOver;
+
     @Override
     public void show() {
         super.show();
@@ -71,11 +74,14 @@ public class GameScreen extends Base2DScreen {
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
+
+        messageGameOver = new MessageGameOver(textureAtlas);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+
         update(delta);
         checkCollisions();
         deleteAllDestroyed();
@@ -94,6 +100,7 @@ public class GameScreen extends Base2DScreen {
     }
 
     public void checkCollisions() {
+
         List<Enemy> enemyList = enemyPool.getActiveObjects();
         for (Enemy enemy : enemyList) {
             if (enemy.isDestroyed()) {
@@ -106,6 +113,7 @@ public class GameScreen extends Base2DScreen {
                 return;
             }
         }
+
         List<Bullet> bulletList = bulletPool.getActiveObjects();
         for (Bullet bullet : bulletList) {
             if (bullet.isDestroyed() || bullet.getOwner() == mainShip) {
@@ -151,9 +159,14 @@ public class GameScreen extends Base2DScreen {
         }
         if (!mainShip.isDestroyed()) {
             mainShip.draw(batch);
+            bulletPool.drawActiveObjects(batch);
+            enemyPool.drawActiveObjects(batch);
+        } else {
+//            messageGameOver.draw(batch);
         }
-        bulletPool.drawActiveObjects(batch);
-        enemyPool.drawActiveObjects(batch);
+//        bulletPool.drawActiveObjects(batch);
+//        enemyPool.drawActiveObjects(batch);
+        messageGameOver.draw(batch);
         explosionPool.drawActiveObjects(batch);
         batch.end();
     }
@@ -165,6 +178,7 @@ public class GameScreen extends Base2DScreen {
             stars[i].resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        messageGameOver.resize(worldBounds);
     }
 
     @Override
@@ -174,6 +188,7 @@ public class GameScreen extends Base2DScreen {
         music.dispose();
         laserSound.dispose();
         bulletSound.dispose();
+
         super.dispose();
     }
 
