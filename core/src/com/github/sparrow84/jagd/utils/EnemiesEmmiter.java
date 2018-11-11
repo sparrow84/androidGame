@@ -9,6 +9,7 @@ import com.github.sparrow84.jagd.pool.EnemyPool;
 import com.github.sparrow84.jagd.sprite.Enemy;
 
 public class EnemiesEmmiter {
+
     private static final float ENEMY_SMALL_HEIGHT = 0.1f;
     private static final float ENEMY_SMALL_BULLET_HEIGHT = 0.01f;
     private static final float ENEMY_SMALL_BULLET_VY = -0.3f;
@@ -33,12 +34,9 @@ public class EnemiesEmmiter {
     private TextureRegion[] enemySmallRegion;
     private TextureRegion[] enemyMediumRegion;
     private TextureRegion[] enemyBigRegion;
-
-    // Enemy speed
     private Vector2 enemySmallV = new Vector2(0, -0.2f);
     private Vector2 enemyMediumV = new Vector2(0, -0.03f);
     private Vector2 enemyBigV = new Vector2(0, -0.005f);
-    private Vector2 speedOfAppearance = new Vector2(0, -0.7f);
 
     private EnemyPool enemyPool;
     private Rect worldBounds;
@@ -70,11 +68,10 @@ public class EnemiesEmmiter {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
-            if (type < 0.7f) {
+            if (type < 0.5f) {
                 enemy.set(
                         enemySmallRegion,
                         enemySmallV,
-                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         ENEMY_SMALL_BULLET_VY,
@@ -83,11 +80,10 @@ public class EnemiesEmmiter {
                         ENEMY_SMALL_HEIGHT,
                         ENEMY_SMALL_HP
                 );
-            } else if (type < 0.9) {
+            } else if (type < 0.8) {
                 enemy.set(
                         enemyMediumRegion,
                         enemyMediumV,
-                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         ENEMY_MEDIUM_BULLET_VY,
@@ -100,7 +96,6 @@ public class EnemiesEmmiter {
                 enemy.set(
                         enemyBigRegion,
                         enemyBigV,
-                        speedOfAppearance,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         ENEMY_BIG_BULLET_VY,
