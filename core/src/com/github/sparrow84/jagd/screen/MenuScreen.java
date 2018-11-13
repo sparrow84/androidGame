@@ -55,7 +55,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         BtPlay = new BtPlay(textureAtlas, this);
 
         messageGameOver = new MessageGameOver(textureAtlas2);
-        messageGameOver.setHeightProportion(0.1f);
+        messageGameOver.setHeightProportion(0.07f);
     }
 
     @Override
