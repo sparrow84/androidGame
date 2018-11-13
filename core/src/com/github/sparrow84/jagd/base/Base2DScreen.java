@@ -95,6 +95,11 @@ public class Base2DScreen implements Screen, InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         System.out.println("keyUp keycode = " + keycode);
+
+        if (keycode == 131) {
+            Gdx.app.exit();
+        }
+
         return false;
     }
 

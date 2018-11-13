@@ -1,6 +1,7 @@
 package com.github.sparrow84.jagd.screen;
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.github.sparrow84.jagd.base.ActionListener;
 import com.github.sparrow84.jagd.base.Base2DScreen;
 import com.github.sparrow84.jagd.math.Rect;
 import com.github.sparrow84.jagd.pool.BulletPool;
@@ -16,6 +18,7 @@ import com.github.sparrow84.jagd.pool.EnemyPool;
 import com.github.sparrow84.jagd.pool.ExplosionPool;
 import com.github.sparrow84.jagd.sprite.Background;
 import com.github.sparrow84.jagd.sprite.Bullet;
+import com.github.sparrow84.jagd.sprite.ButtonNewGame;
 import com.github.sparrow84.jagd.sprite.Enemy;
 import com.github.sparrow84.jagd.sprite.MainShip;
 import com.github.sparrow84.jagd.sprite.MessageGameOver;
@@ -25,7 +28,9 @@ import com.github.sparrow84.jagd.utils.EnemiesEmmiter;
 import java.util.List;
 
 
-public class GameScreen extends Base2DScreen {
+public class GameScreen extends Base2DScreen implements ActionListener {
+
+    private Game game;
 
     private static final int STAR_COUNT = 64;
 
@@ -49,6 +54,8 @@ public class GameScreen extends Base2DScreen {
     private ExplosionPool explosionPool;
 
     private MessageGameOver messageGameOver;
+    private ButtonNewGame buttonNewGame;
+
 
     @Override
     public void show() {
@@ -76,7 +83,11 @@ public class GameScreen extends Base2DScreen {
         music.play();
 
         messageGameOver = new MessageGameOver(textureAtlas);
-        messageGameOver.setHeightProportion(0.07f);
+        messageGameOver.setHeightProportion(0.06f);
+
+        buttonNewGame = new ButtonNewGame(textureAtlas, this);
+        buttonNewGame.setHeightProportion(0.04f);
+
     }
 
     @Override
@@ -98,7 +109,6 @@ public class GameScreen extends Base2DScreen {
             mainShip.update(delta);
             bulletPool.updateActiveObjects(delta);
             enemyPool.updateActiveObjects(delta);
-//            explosionPool.updateActiveObjects(delta);
             enemiesEmmiter.generate(delta);
         }
         explosionPool.updateActiveObjects(delta);
@@ -168,6 +178,7 @@ public class GameScreen extends Base2DScreen {
             enemyPool.drawActiveObjects(batch);
         } else {
             messageGameOver.draw(batch);
+            buttonNewGame.draw(batch);
         }
         explosionPool.drawActiveObjects(batch);
         batch.end();
@@ -180,6 +191,9 @@ public class GameScreen extends Base2DScreen {
             stars[i].resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+
+        messageGameOver.resize(worldBounds);
+        buttonNewGame.resize(worldBounds);
     }
 
     @Override
@@ -208,12 +222,21 @@ public class GameScreen extends Base2DScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
         mainShip.touchDown(touch, pointer);
+        buttonNewGame.touchDown(touch, pointer);
         return super.touchDown(touch, pointer);
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
         mainShip.touchUp(touch, pointer);
+        buttonNewGame.touchDown(touch, pointer);
         return super.touchUp(touch, pointer);
+    }
+
+    @Override
+    public void actionPerformed(Object src) {
+        if (src == buttonNewGame) {
+            game.setScreen(new GameScreen());
+        }
     }
 }
