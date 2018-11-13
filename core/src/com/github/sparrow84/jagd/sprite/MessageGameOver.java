@@ -14,8 +14,10 @@ public class MessageGameOver extends Sprite {
 
     @Override
     public void resize(Rect worldBounds) {
-        setBottom(worldBounds.getBottom());
-        setRight(worldBounds.getRight());
+//        setBottom(worldBounds.getBottom());
+//        setRight(worldBounds.getRight());
+        setBottom(0);
+        setRight(0);
     }
 
 }
