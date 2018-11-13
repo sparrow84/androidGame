@@ -83,7 +83,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         BtExit.draw(batch);
         BtPlay.draw(batch);
 
-        messageGameOver.draw(batch);
+//        messageGameOver.draw(batch);
 
         batch.end();
     }

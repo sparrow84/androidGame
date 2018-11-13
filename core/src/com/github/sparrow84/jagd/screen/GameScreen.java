@@ -76,6 +76,7 @@ public class GameScreen extends Base2DScreen {
         music.play();
 
         messageGameOver = new MessageGameOver(textureAtlas);
+        messageGameOver.setHeightProportion(0.07f);
     }
 
     @Override
@@ -92,11 +93,15 @@ public class GameScreen extends Base2DScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i].update(delta);
         }
-        mainShip.update(delta);
-        bulletPool.updateActiveObjects(delta);
-        enemyPool.updateActiveObjects(delta);
+
+        if (!mainShip.isDestroyed()) {
+            mainShip.update(delta);
+            bulletPool.updateActiveObjects(delta);
+            enemyPool.updateActiveObjects(delta);
+//            explosionPool.updateActiveObjects(delta);
+            enemiesEmmiter.generate(delta);
+        }
         explosionPool.updateActiveObjects(delta);
-        enemiesEmmiter.generate(delta);
     }
 
     public void checkCollisions() {
@@ -162,11 +167,8 @@ public class GameScreen extends Base2DScreen {
             bulletPool.drawActiveObjects(batch);
             enemyPool.drawActiveObjects(batch);
         } else {
-//            messageGameOver.draw(batch);
+            messageGameOver.draw(batch);
         }
-//        bulletPool.drawActiveObjects(batch);
-//        enemyPool.drawActiveObjects(batch);
-        messageGameOver.draw(batch);
         explosionPool.drawActiveObjects(batch);
         batch.end();
     }
@@ -178,7 +180,6 @@ public class GameScreen extends Base2DScreen {
             stars[i].resize(worldBounds);
         }
         mainShip.resize(worldBounds);
-        messageGameOver.resize(worldBounds);
     }
 
     @Override
