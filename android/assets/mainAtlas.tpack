@@ -73,3 +73,10 @@ star
   orig: 11, 10
   offset: 0, 0
   index: -1
+lifeIndicator
+  rotate: false
+  xy: 815, 236
+  size: 70, 5
+  orig: 70, 5
+  offset: 0, 0
+  index: -1

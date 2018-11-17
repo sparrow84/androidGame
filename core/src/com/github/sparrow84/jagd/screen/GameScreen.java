@@ -21,6 +21,7 @@ import com.github.sparrow84.jagd.sprite.Background;
 import com.github.sparrow84.jagd.sprite.Bullet;
 import com.github.sparrow84.jagd.sprite.ButtonNewGame;
 import com.github.sparrow84.jagd.sprite.Enemy;
+import com.github.sparrow84.jagd.sprite.LifeIndicator;
 import com.github.sparrow84.jagd.sprite.MainShip;
 import com.github.sparrow84.jagd.sprite.MessageGameOver;
 import com.github.sparrow84.jagd.sprite.Star;
@@ -68,6 +69,8 @@ public class GameScreen extends Base2DScreen implements ActionListener {
     private MessageGameOver messageGameOver;
     private ButtonNewGame buttonNewGame;
 
+    private LifeIndicator lifeIndicator;
+
     private Font font;
 
     @Override
@@ -93,6 +96,8 @@ public class GameScreen extends Base2DScreen implements ActionListener {
 
         messageGameOver = new MessageGameOver(textureAtlas);
         buttonNewGame = new ButtonNewGame(textureAtlas, this);
+
+        lifeIndicator = new LifeIndicator(textureAtlas, worldBounds);
 
         font = new Font("font/font.fnt", "font/font.png");
         font.setFontSize(0.02f);
@@ -125,6 +130,9 @@ public class GameScreen extends Base2DScreen implements ActionListener {
             enemyPool.updateActiveObjects(delta);
             mainShip.update(delta);
             enemiesEmmiter.generate(delta, frags);
+
+            lifeIndicator.update(delta);
+
             if (mainShip.isDestroyed()) {
                 state = State.GAME_OVER;
             }
@@ -214,6 +222,7 @@ public class GameScreen extends Base2DScreen implements ActionListener {
         font.draw(batch, sbFrags.append(FRAGS).append(frags), worldBounds.getLeft(), worldBounds.getTop());
         font.draw(batch, sbHP.append(HP).append(mainShip.getHp()), worldBounds.pos.x, worldBounds.getTop(), Align.center);
         font.draw(batch, sbLevel.append(LEVEL).append(enemiesEmmiter.getLevel()), worldBounds.getRight(), worldBounds.getTop(), Align.right);
+        lifeIndicator.draw(batch,mainShip.getHp());
     }
 
     @Override
