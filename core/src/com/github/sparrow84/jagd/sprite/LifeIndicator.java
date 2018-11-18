@@ -6,10 +6,14 @@ import com.github.sparrow84.jagd.base.Sprite;
 import com.github.sparrow84.jagd.math.Rect;
 
 public class LifeIndicator extends Sprite {
-    public LifeIndicator(TextureAtlas atlas, Rect worldBounds) {
+
+    private int size;
+
+    public LifeIndicator(TextureAtlas atlas, Rect worldBounds, int lifeCount) {
         super(atlas.findRegion("lifeIndicator"));
         setHeightProportion(0.02f);
         setTop(0.47f);
+        size = lifeCount;
     }
 
     public void draw(SpriteBatch batch, int size) {
@@ -23,7 +27,7 @@ public class LifeIndicator extends Sprite {
                 getLeft(), getBottom(),     // точка отрисовки
                 halfWidth, halfHeight,      // точка вращения
                 // 0.01f ... 0.35f
-                (float) (0.34 - (100 - size) * 0.0034), getHeight(),    // ширина и высота
+                (float) (0.34 - (this.size - size) * 0.0034), getHeight(),    // ширина и высота
                 scale, scale,               // масштаб по x и y
                 angle                       // угол вращения
         );

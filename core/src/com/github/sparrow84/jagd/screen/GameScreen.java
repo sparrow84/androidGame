@@ -97,7 +97,7 @@ public class GameScreen extends Base2DScreen implements ActionListener {
         messageGameOver = new MessageGameOver(textureAtlas);
         buttonNewGame = new ButtonNewGame(textureAtlas, this);
 
-        lifeIndicator = new LifeIndicator(textureAtlas, worldBounds);
+        lifeIndicator = new LifeIndicator(textureAtlas, worldBounds, mainShip.getHp());
 
         font = new Font("font/font.fnt", "font/font.png");
         font.setFontSize(0.02f);
