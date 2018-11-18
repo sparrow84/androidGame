@@ -22,8 +22,8 @@ public class LifeIndicator extends Sprite {
                 regions[frame],             //текущий регион
                 getLeft(), getBottom(),     // точка отрисовки
                 halfWidth, halfHeight,      // точка вращения
-                0.5f, getHeight(),    // ширина и высота
-//                0.2f, getHeight(),        // ширина и высота
+                // 0.01f ... 0.35f
+                0.35f, getHeight(),    // ширина и высота
                 scale, scale,               // масштаб по x и y
                 angle                       // угол вращения
         );
