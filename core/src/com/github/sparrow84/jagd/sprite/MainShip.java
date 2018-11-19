@@ -158,10 +158,10 @@ public class MainShip extends Ship {
     }
 
     public boolean isBulletCollision(Rect bullet) {
-        return !(bullet.getRight() < getLeft()
-                || bullet.getLeft() > getRight()
+        return   !(bullet.getRight()  < getLeft()
+                || bullet.getLeft()   > getRight()
                 || bullet.getBottom() > pos.y
-                || bullet.getTop() <getBottom()
+                || bullet.getTop()    < getBottom()
         );
     }
 
